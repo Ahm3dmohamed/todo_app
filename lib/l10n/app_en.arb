@@ -1,0 +1,24 @@
+{
+"appTitle":"To Do List",
+"list":"List",
+"task":"Enter Task Name",
+"taskDescreption":"Enter Task Description",
+"addTask":"Add Task",
+"selectedDate":"Selected Date",
+"addNewTask":"Add New Task",
+"taskTile":"Task Tile",
+"taskdes":"Task Description",
+"mode":"ThemeMode",
+"dark":"Dark",
+"light":"Light",
+"setting":"Settings",
+"language":"language"
+
+
+
+
+
+
+
+
+}
