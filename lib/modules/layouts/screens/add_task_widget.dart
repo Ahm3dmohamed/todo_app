@@ -5,7 +5,7 @@ import 'package:todo_app/modules/layouts/manager/provider/provider.dart';
 
 class AddTaskWidget extends StatelessWidget {
   static const String routeName = "AddTaskWidget";
-  AddTaskWidget({super.key});
+  const AddTaskWidget({super.key});
   @override
   Widget build(BuildContext context) {
     return Consumer<MainProvider>(
@@ -17,7 +17,7 @@ class AddTaskWidget extends StatelessWidget {
               Center(
                 child: Text(
                   appTranslation(context).addNewTask,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.w700,
                   ),
@@ -27,6 +27,7 @@ class AddTaskWidget extends StatelessWidget {
                 height: 18,
               ),
               TextField(
+                controller: Provider.titleController,
                 decoration: InputDecoration(
                     hintText: appTranslation(context).addTask,
                     labelText: appTranslation(context).addTask,
@@ -39,6 +40,7 @@ class AddTaskWidget extends StatelessWidget {
                 height: 18,
               ),
               TextField(
+                controller: Provider.descController,
                 decoration: InputDecoration(
                     hintText: appTranslation(context).taskDescreption,
                     labelText: appTranslation(context).taskDescreption,
@@ -67,10 +69,22 @@ class AddTaskWidget extends StatelessWidget {
                   },
                   child: Text(
                       Provider.selectedDatePicker.toString().substring(0, 10))),
-              Spacer(),
+              const Spacer(),
               ElevatedButton(
-                  onPressed: () {},
+                  style: ElevatedButton.styleFrom(
+                      shadowColor: Colors.white,
+                      backgroundColor: const Color(0xFF5D9CEC).withOpacity(.2),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(24),
+                          side: const BorderSide(
+                            color: Color(0xFF5D9CEC),
+                          ))),
+                  onPressed: () {
+                    Provider.addTask();
+                    Navigator.pop(context);
+                  },
                   child: Text(
+                    style: const TextStyle(color: Colors.black, fontSize: 18),
                     appTranslation(context).addTask,
                   ))
             ],

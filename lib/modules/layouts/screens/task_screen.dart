@@ -1,6 +1,7 @@
 import 'package:easy_date_timeline/easy_date_timeline.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:todo_app/modules/core/model/task_moder.dart';
 import 'package:todo_app/modules/core/themes/ui_utils.dart';
 import 'package:todo_app/modules/layouts/manager/provider/provider.dart';
 import 'package:todo_app/modules/layouts/screens/add_task_widget.dart';
@@ -16,7 +17,7 @@ class TaskScreen extends StatelessWidget {
       builder: (BuildContext context, Provider, Widget? child) {
         return Scaffold(
           appBar: AppBar(
-            toolbarHeight: 140,
+            toolbarHeight: 160,
             shape: const RoundedRectangleBorder(
               borderRadius: BorderRadius.only(
                   bottomLeft: Radius.circular(34),
@@ -26,7 +27,7 @@ class TaskScreen extends StatelessWidget {
             title: Padding(
               padding: const EdgeInsets.all(12),
               child: Text(
-                appTranslation(context).language,
+                appTranslation(context).appTitle,
                 style: const TextStyle(
                     fontSize: 24,
                     fontWeight: FontWeight.normal,
@@ -52,8 +53,8 @@ class TaskScreen extends StatelessWidget {
                   );
                 },
                 child: EasyInfiniteDateTimeLine(
-                  firstDate: DateTime.now().subtract(Duration(days: 365)),
-                  lastDate: DateTime.now().add(Duration(days: 365)),
+                  firstDate: DateTime.now().subtract(const Duration(days: 365)),
+                  lastDate: DateTime.now().add(const Duration(days: 365)),
                   focusDate: Provider.selectedDate,
                   showTimelineHeader: false,
                   onDateChange: Provider.setDate,
@@ -76,18 +77,40 @@ class TaskScreen extends StatelessWidget {
               const SizedBox(
                 height: 6,
               ),
-              Expanded(
-                child: ListView.separated(
-                    itemBuilder: (context, index) {
-                      return TaskItem();
-                    },
-                    separatorBuilder: (context, index) {
-                      return const SizedBox(
-                        height: 12,
-                      );
-                    },
-                    itemCount: 30),
-              )
+              FutureBuilder(
+                future: Provider.getTask(),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  } else if (snapshot.hasError) {
+                    return const Center(child: Text("Error Data"));
+                  } else if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
+                    return const Center(
+                        child:
+                            Text("No tasks available")); // Handle no data case
+                  } else {
+                    List<TaskModel> tasks =
+                        snapshot.data!.docs.map((e) => e.data()).toList();
+                    return Expanded(
+                      child: ListView.separated(
+                        itemBuilder: (context, index) {
+                          return TaskItem(
+                            taskModel: tasks[index],
+                          );
+                        },
+                        separatorBuilder: (context, index) {
+                          return const SizedBox(
+                            height: 12,
+                          );
+                        },
+                        itemCount: tasks.length,
+                      ),
+                    );
+                  }
+                },
+              ),
             ],
           ),
         );
