@@ -3,13 +3,16 @@ import 'package:provider/provider.dart';
 import 'package:todo_app/modules/core/themes/app_color.dart';
 import 'package:todo_app/modules/core/themes/ui_utils.dart';
 import 'package:todo_app/modules/layouts/manager/provider/provider.dart';
+import 'package:todo_app/modules/layouts/manager/provider/theme_provider.dart';
 import 'package:todo_app/modules/layouts/screens/add_task_widget.dart';
 
 class HomeScreen extends StatelessWidget {
   static const String routeName = 'HomeScreen';
-  HomeScreen({super.key});
+  const HomeScreen({super.key});
   @override
   Widget build(BuildContext context) {
+    final themeProvider = Provider.of<ThemeProvider>(context, listen: false);
+    bool isDarkEnabled = themeProvider.isDarkEnabled();
     return ChangeNotifierProvider(
       create: (BuildContext context) => MainProvider(),
       child: Selector<MainProvider, int>(
@@ -19,13 +22,17 @@ class HomeScreen extends StatelessWidget {
           return Scaffold(
             extendBody: true,
             floatingActionButton: FloatingActionButton(
-                backgroundColor: AppColor.primaryColor,
+                backgroundColor: isDarkEnabled
+                    ? const Color.fromARGB(255, 4, 48, 105)
+                    : AppColor.primaryColor,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(
                     34,
                   ),
-                  side: const BorderSide(
-                    color: Colors.white,
+                  side: BorderSide(
+                    color: isDarkEnabled
+                        ? Colors.white.withOpacity(.6)
+                        : AppColor.primaryColor,
                     width: 3,
                   ),
                 ),
@@ -39,7 +46,7 @@ class HomeScreen extends StatelessWidget {
                     context: context,
                     builder: (context) {
                       return ChangeNotifierProvider.value(
-                          value: provider, child: AddTaskWidget());
+                          value: provider, child: const AddTaskWidget());
                     },
                   );
                 },
@@ -54,7 +61,7 @@ class HomeScreen extends StatelessWidget {
               height: 72,
               color: AppColor.secondaryColor,
               padding: EdgeInsets.zero,
-              notchMargin: 12,
+              notchMargin: 14,
               shape: const CircularNotchedRectangle(),
               child: BottomNavigationBar(
                 currentIndex: provider.currentIndex,

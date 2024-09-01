@@ -59,7 +59,7 @@ class SettingLangTab extends StatelessWidget {
                 Text(
                   text,
                 ),
-                Icon(
+                const Icon(
                   Icons.check,
                   // color: Theme.of(context).colorScheme.secondary,
                 )

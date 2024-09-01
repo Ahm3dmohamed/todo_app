@@ -11,20 +11,21 @@ class AddTaskWidget extends StatelessWidget {
     return Consumer<MainProvider>(
       builder: (BuildContext context, Provider, Widget? child) {
         return Container(
-          padding: const EdgeInsets.all(18),
+          padding:
+              const EdgeInsets.only(right: 18, left: 18, top: 4, bottom: 4),
           child: Column(
             children: [
               Center(
                 child: Text(
                   appTranslation(context).addNewTask,
                   style: const TextStyle(
-                    fontSize: 18,
+                    fontSize: 16,
                     fontWeight: FontWeight.w700,
                   ),
                 ),
               ),
               const SizedBox(
-                height: 18,
+                height: 12,
               ),
               TextField(
                 controller: Provider.titleController,
@@ -37,7 +38,7 @@ class AddTaskWidget extends StatelessWidget {
                             color: Color(0xFF5D9CEC), width: 2))),
               ),
               const SizedBox(
-                height: 18,
+                height: 12,
               ),
               TextField(
                 controller: Provider.descController,
@@ -52,7 +53,35 @@ class AddTaskWidget extends StatelessWidget {
               const SizedBox(
                 height: 18,
               ),
+              const Text(
+                "Selected Time",
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+              InkWell(
+                  onTap: () {
+                    showTimePicker(context: context, initialTime: Provider.time)
+                        .then((value) {
+                      Provider.setTime(value!);
+                    });
+                  },
+                  child: Text(
+                    "${Provider.time.hour} : ${Provider.time.minute} ",
+                    style: const TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w300,
+                    ),
+                  )),
+              const SizedBox(
+                height: 18,
+              ),
               Text(
+                style: const TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w700,
+                ),
                 appTranslation(context).selectedDate,
               ),
               InkWell(
@@ -64,10 +93,14 @@ class AddTaskWidget extends StatelessWidget {
                             lastDate:
                                 DateTime.now().add(const Duration(days: 365)))
                         .then((value) {
-                      Provider!.setDatePicker(value!);
+                      Provider.setDatePicker(value!);
                     });
                   },
                   child: Text(
+                      style: const TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w300,
+                      ),
                       Provider.selectedDatePicker.toString().substring(0, 10))),
               const Spacer(),
               ElevatedButton(

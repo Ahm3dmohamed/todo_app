@@ -2,6 +2,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:todo_app/firebase_options.dart';
+import 'package:todo_app/modules/core/model/auth/pages/create_acount_screen.dart';
+import 'package:todo_app/modules/core/model/auth/pages/login_screen.dart';
 import 'package:todo_app/modules/core/themes/apptheme.dart';
 import 'package:todo_app/modules/layouts/manager/provider/local_provider.dart';
 import 'package:todo_app/modules/layouts/manager/provider/theme_provider.dart';
@@ -26,7 +28,7 @@ void main() async {
         ChangeNotifierProvider(create: (context) => ThemeProvider()),
         ChangeNotifierProvider(create: (context) => LocaleProvider()),
       ],
-      child: MyApp(),
+      child: const MyApp(),
     ),
   );
 }
@@ -46,9 +48,11 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       initialRoute: LayoutScreen.routeName,
       routes: {
-        LayoutScreen.routeName: (context) => LayoutScreen(),
+        LayoutScreen.routeName: (context) => const LayoutScreen(),
         HomeScreen.routeName: (context) => HomeScreen(),
-        Settings.routeName: (context) => Settings(),
+        Settings.routeName: (context) => const Settings(),
+        LoginScreen.routeName: (context) => const LoginScreen(),
+        CreateAcountScreen.routeName: (context) => CreateAcountScreen(),
       },
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,

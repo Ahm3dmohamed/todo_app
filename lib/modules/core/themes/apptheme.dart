@@ -4,9 +4,9 @@ import 'package:todo_app/modules/core/themes/app_color.dart';
 
 class Apptheme {
   static const Color light = Colors.white;
-  static final Color lightPrimary = const Color(0xFF5D9CEC);
-  static final Color darkPrimary = const Color(0xFF141922);
-  static final Color darkSplash = Color(0xff060E1E);
+  static const Color lightPrimary = Color(0xFF5D9CEC);
+  static const Color darkPrimary = Color(0xFF141922);
+  static final Color darkSplash = const Color(0xff060E1E);
 
   ThemeData isDark = darkTheme;
   static ThemeData lightTheme = ThemeData(

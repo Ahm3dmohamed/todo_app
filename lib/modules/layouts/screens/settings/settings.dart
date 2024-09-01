@@ -16,12 +16,11 @@ class Settings extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        toolbarHeight: 160,
+        toolbarHeight: 200,
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
               bottomLeft: Radius.circular(34),
               bottomRight: Radius.circular(34)),
-          side: BorderSide(color: Colors.black),
         ),
         title: Text(
           appTranslation(context).setting,
@@ -56,7 +55,7 @@ class Settings extends StatelessWidget {
                     Text(
                       textAlign: TextAlign.start,
                       themeProvider.currentTheme.name,
-                      style: TextStyle(color: Color(0xFF5D9CEC)),
+                      style: const TextStyle(color: Color(0xFF5D9CEC)),
                     ),
                     IconButton(
                         onPressed: () {
@@ -87,7 +86,7 @@ class Settings extends StatelessWidget {
                   children: [
                     Text(
                       textAlign: TextAlign.start,
-                      style: TextStyle(color: Color(0xFF5D9CEC)),
+                      style: const TextStyle(color: Color(0xFF5D9CEC)),
                       localeProvider.getCurrentLocale(),
                     ),
                     IconButton(
