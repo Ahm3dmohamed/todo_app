@@ -4,9 +4,11 @@ import 'package:todo_app/modules/core/themes/app_color.dart';
 
 class Apptheme {
   static const Color light = Colors.white;
-  static final Color lightPrimary = Color(0xFF5D9CEC);
-  static final Color darkPrimary = Color(0xFF141922);
+  static const Color lightPrimary = Color(0xFF5D9CEC);
+  static const Color darkPrimary = Color(0xFF141922);
+  static final Color darkSplash = const Color(0xff060E1E);
 
+  ThemeData isDark = darkTheme;
   static ThemeData lightTheme = ThemeData(
     appBarTheme: AppBarTheme(
       backgroundColor: Apptheme.lightPrimary,
@@ -43,7 +45,7 @@ class Apptheme {
       ),
     ),
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
-      showSelectedLabels: false,
+      showSelectedLabels: true,
       showUnselectedLabels: false,
       backgroundColor: Colors.transparent,
       elevation: 0,
@@ -62,10 +64,21 @@ class Apptheme {
   );
 
   static ThemeData darkTheme = ThemeData(
-    appBarTheme: AppBarTheme(
-      backgroundColor: Apptheme.lightPrimary,
+    floatingActionButtonTheme: FloatingActionButtonThemeData(
+      elevation: 3,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(4), // Rounded corners
+        side: const BorderSide(
+          color: Color(0xFF5D9CEC), // Border color
+          width: 4, // Border width
+        ),
+      ),
+      backgroundColor: const Color(0xFF141922), // Background color
+    ),
+    appBarTheme: const AppBarTheme(
+      backgroundColor: Color.fromARGB(255, 4, 48, 105),
       elevation: 0,
-      titleTextStyle: const TextStyle(
+      titleTextStyle: TextStyle(
         color: Colors.black,
         fontSize: 22,
         fontWeight: FontWeight.w700,
@@ -90,7 +103,9 @@ class Apptheme {
         // fontFamily: 'Qran'
       ),
     ),
-    bottomNavigationBarTheme: BottomNavigationBarThemeData(
+    bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+      showSelectedLabels: true,
+      showUnselectedLabels: false,
       backgroundColor: Color(0xff141922),
     ),
     bottomSheetTheme: BottomSheetThemeData(
@@ -99,7 +114,7 @@ class Apptheme {
     datePickerTheme: DatePickerThemeData(
       backgroundColor: Apptheme.darkPrimary,
     ),
-    scaffoldBackgroundColor: Colors.transparent,
+    scaffoldBackgroundColor: Apptheme.darkSplash,
     splashColor: Apptheme.darkPrimary,
   );
 }

@@ -16,15 +16,14 @@ class Settings extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        toolbarHeight: 140,
+        toolbarHeight: 200,
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
               bottomLeft: Radius.circular(34),
               bottomRight: Radius.circular(34)),
-          side: BorderSide(color: Colors.black),
         ),
         title: Text(
-          appTranslation(context).language,
+          appTranslation(context).setting,
           textDirection: TextDirection.ltr,
           style: const TextStyle(
               fontSize: 28, fontWeight: FontWeight.normal, color: Colors.white),
@@ -35,62 +34,68 @@ class Settings extends StatelessWidget {
         padding: const EdgeInsets.all(18),
         child: Column(
           children: [
-            Text(appTranslation(context).mode),
+            Text(
+              textAlign: TextAlign.start,
+              appTranslation(context).mode,
+            ),
             const SizedBox(
               height: 18,
             ),
-            InkWell(
-              onTap: () {
-                showThemeBottomSheet(context);
-              },
-              child: Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(24),
-                      border: Border.all(color: const Color(0xffB7935F))),
-                  child: Center(
-                      child: Text(
-                    themeProvider.currentTheme.name,
-                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                          color: const Color(
-                            0xFF141922,
-                          ),
-                        ),
-                  ))),
-            ),
+            Container(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+                width: double.infinity,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(18),
+                    border: Border.all(
+                        color: const Color.fromARGB(255, 3, 42, 94))),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      textAlign: TextAlign.start,
+                      themeProvider.currentTheme.name,
+                      style: const TextStyle(color: Color(0xFF5D9CEC)),
+                    ),
+                    IconButton(
+                        onPressed: () {
+                          showThemeBottomSheet(context);
+                        },
+                        icon: const Icon(Icons.arrow_drop_down_outlined))
+                  ],
+                )),
             const SizedBox(
               height: 18,
             ),
             Text(
               appTranslation(context).language,
-              style: Theme.of(context).textTheme.bodySmall,
             ),
             const SizedBox(
               height: 18,
             ),
-            InkWell(
-              onTap: () {
-                showlanguageBottomSheet(context);
-              },
-              child: Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(24),
-                      border: Border.all(color: const Color(0xffB7935F))),
-                  child: Center(
-                      child: Text(
-                    localeProvider.getCurrentLocale(),
-                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                          color: const Color(
-                            0xffB7935F,
-                          ),
-                        ),
-                  ))),
-            ),
+            Container(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+                width: double.infinity,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(18),
+                    border: Border.all(
+                        color: const Color.fromARGB(255, 3, 42, 94))),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      textAlign: TextAlign.start,
+                      style: const TextStyle(color: Color(0xFF5D9CEC)),
+                      localeProvider.getCurrentLocale(),
+                    ),
+                    IconButton(
+                        onPressed: () {
+                          showlanguageBottomSheet(context);
+                        },
+                        icon: const Icon(Icons.arrow_drop_down_outlined))
+                  ],
+                )),
           ],
         ),
       ),
@@ -101,7 +106,7 @@ class Settings extends StatelessWidget {
     showModalBottomSheet(
         context: context,
         builder: (BuildContext context) {
-          return SettingThemeTab();
+          return const SettingThemeTab();
         });
   }
 }
@@ -110,6 +115,6 @@ void showlanguageBottomSheet(BuildContext context) {
   showModalBottomSheet(
       context: context,
       builder: (BuildContext context) {
-        return SettingLangTab();
+        return const SettingLangTab();
       });
 }

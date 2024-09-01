@@ -11,7 +11,8 @@ class SettingLangTab extends StatelessWidget {
       decoration: BoxDecoration(
         // color: const Color(0xffB7935F).withOpacity(.1),
         borderRadius: BorderRadius.circular(24),
-        border: Border.all(color: Color(0xffB7935F), width: 2),
+        border:
+            Border.all(color: const Color.fromARGB(255, 3, 42, 94), width: 2),
       ),
       child: Padding(
         padding: const EdgeInsets.all(44),
@@ -49,19 +50,18 @@ class SettingLangTab extends StatelessWidget {
             width: double.infinity,
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(24),
-                border: Border.all(color: const Color(0xffB7935F))),
+                border:
+                    Border.all(color: const Color.fromARGB(255, 3, 42, 94))),
             child: Center(
                 child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
                   text,
-                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                      color: Theme.of(context).colorScheme.secondary),
                 ),
-                Icon(
+                const Icon(
                   Icons.check,
-                  color: Theme.of(context).colorScheme.secondary,
+                  // color: Theme.of(context).colorScheme.secondary,
                 )
               ],
             ))),
@@ -80,15 +80,11 @@ class SettingLangTab extends StatelessWidget {
             width: double.infinity,
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(24),
-                border: Border.all(color: const Color(0xffB7935F))),
+                border:
+                    Border.all(color: const Color.fromARGB(255, 15, 70, 138))),
             child: Center(
                 child: Text(
               text,
-              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                    color: const Color(
-                      0xffB7935F,
-                    ),
-                  ),
             ))),
         const SizedBox(
           height: 18,

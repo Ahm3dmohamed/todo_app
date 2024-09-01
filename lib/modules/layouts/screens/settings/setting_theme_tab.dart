@@ -13,7 +13,8 @@ class SettingThemeTab extends StatelessWidget {
       height: 350,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(24),
-        border: Border.all(color: const Color(0xFF141922), width: 2),
+        border:
+            Border.all(color: const Color.fromARGB(255, 3, 42, 94), width: 2),
       ),
       child: Padding(
         padding: const EdgeInsets.all(44),
@@ -45,7 +46,8 @@ class SettingThemeTab extends StatelessWidget {
             width: double.infinity,
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(24),
-                border: Border.all(color: const Color(0xFF141922))),
+                border:
+                    Border.all(color: const Color.fromARGB(255, 15, 90, 189))),
             child: Center(
                 child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -77,7 +79,8 @@ class SettingThemeTab extends StatelessWidget {
             width: double.infinity,
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(24),
-                border: Border.all(color: const Color(0xFF141922))),
+                border:
+                    Border.all(color: const Color.fromARGB(255, 21, 77, 180))),
             child: Center(
                 child:
                     Text(text, style: Theme.of(context).textTheme.bodyMedium))),
