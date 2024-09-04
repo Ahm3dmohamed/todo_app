@@ -16,7 +16,6 @@ class MainProvider extends ChangeNotifier {
   TimeOfDay time = TimeOfDay.now();
   TextEditingController titleController = TextEditingController();
   TextEditingController descController = TextEditingController();
-  UserModel? user;
   int currentIndex = 0;
   List<Widget> tabs = [
     const TaskScreen(),
@@ -86,6 +85,12 @@ class MainProvider extends ChangeNotifier {
     } catch (error) {
       print('Failed to update task: $error');
     }
+  }
+
+  UserModel? user;
+
+  MainProvider() {
+    getUser();
   }
 
   void getUser() async {

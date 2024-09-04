@@ -87,7 +87,7 @@ class LoginScreen extends StatelessWidget {
                         ),
                         // Add your email validation function here
                         validator: (value) {
-                          if (value == null || value.isEmpty) {
+                          if (value == null || value.trim().isEmpty) {
                             return 'Please enter your email';
                           }
                           if (!RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(value)) {
@@ -146,7 +146,26 @@ class LoginScreen extends StatelessWidget {
                         },
                       ),
                     ),
-                    const SizedBox(height: 24),
+                    InkWell(
+                      onTap: () {
+                        authProvider.resetPawword();
+                      },
+                      child: const Padding(
+                        padding: EdgeInsets.only(left: 24, top: 5),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            Text.rich(
+                                // textAlign: TextAlign.end,
+                                TextSpan(
+                                    style: TextStyle(
+                                        fontSize: 16, color: Color(0xFF5D9CEC)),
+                                    text: "Forget Password")),
+                          ],
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 12),
                     // Login Button
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 12),

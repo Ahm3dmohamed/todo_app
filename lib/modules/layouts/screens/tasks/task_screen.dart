@@ -12,14 +12,13 @@ import 'package:todo_app/modules/layouts/screens/tasks/task_item.dart';
 class TaskScreen extends StatelessWidget {
   static const String routeName = "TaskScreen";
   const TaskScreen({super.key});
-
   @override
   Widget build(BuildContext context) {
     final themeProvider = Provider.of<ThemeProvider>(context, listen: false);
     bool isDarkEnabled = themeProvider.isDarkEnabled();
 
     return Consumer<MainProvider>(
-      builder: (BuildContext context, Provider, Widget? child) {
+      builder: (BuildContext context, mainProvider, Widget? child) {
         return Scaffold(
           appBar: AppBar(
             toolbarHeight: 155,
@@ -32,7 +31,7 @@ class TaskScreen extends StatelessWidget {
             title: Padding(
               padding: const EdgeInsets.only(left: 12, right: 12, bottom: 44),
               child: Text(
-                " ${appTranslation(context).appTitle} \n,${Provider.user?.userName ?? "Hetler"}",
+                " ${appTranslation(context).appTitle} \n Welcome ${mainProvider.user?.userName?.toUpperCase() ?? "Guest"}",
                 style: const TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.normal,
@@ -57,7 +56,7 @@ class TaskScreen extends StatelessWidget {
                     context: context,
                     builder: (context) {
                       return ChangeNotifierProvider.value(
-                        value: Provider,
+                        value: mainProvider,
                         child: const AddTaskWidget(),
                       );
                     },
@@ -67,9 +66,9 @@ class TaskScreen extends StatelessWidget {
                   firstDate:
                       FirebaseAuth.instance.currentUser!.metadata.creationTime!,
                   lastDate: DateTime.now().add(const Duration(days: 365)),
-                  focusDate: Provider.selectedDate,
+                  focusDate: mainProvider.selectedDate,
                   showTimelineHeader: false,
-                  onDateChange: Provider.setDate,
+                  onDateChange: mainProvider.setDate,
                   activeColor: const Color(0xff37306B),
                   dayProps: EasyDayProps(
                     todayHighlightStyle: TodayHighlightStyle.withBackground,
@@ -91,7 +90,7 @@ class TaskScreen extends StatelessWidget {
               const SizedBox(height: 18),
               Expanded(
                 child: StreamBuilder(
-                  stream: Provider.getTask(),
+                  stream: mainProvider.getTask(),
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
                       return const Center(

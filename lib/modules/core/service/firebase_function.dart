@@ -126,6 +126,7 @@ class FirebaseFunction {
         email: email,
         password: password,
       );
+      return credential;
       // if (credential.user != null) {
       //   if (!credential.user!.emailVerified) {
       //     print("Error: Email is not verified.");
@@ -149,5 +150,9 @@ class FirebaseFunction {
     } else {
       print('Document not found.');
     }
+  }
+
+  static resetPassword(String email) {
+    FirebaseAuth.instance.sendPasswordResetEmail(email: email);
   }
 }

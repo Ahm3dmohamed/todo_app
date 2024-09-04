@@ -70,7 +70,7 @@ class CreateAcountScreen extends StatelessWidget {
                           keyboardType: TextInputType.name,
                           controller: authProvider.nameController,
                           validator: (value) {
-                            if (value == null || value.isEmpty) {
+                            if (value == null || value.trim().isEmpty) {
                               return "Name is required";
                             }
                             return null;
@@ -103,7 +103,7 @@ class CreateAcountScreen extends StatelessWidget {
                           autovalidateMode: AutovalidateMode.onUserInteraction,
                           controller: authProvider.emailController,
                           validator: (value) {
-                            if (value == null || value.isEmpty) {
+                            if (value == null || value.trim().isEmpty) {
                               return 'Please enter your email';
                             }
                             if (!RegExp(r'^[^@]+@[^@]+\.[^@]+')
@@ -179,7 +179,7 @@ class CreateAcountScreen extends StatelessWidget {
                           autovalidateMode: AutovalidateMode.onUserInteraction,
                           controller: authProvider.passController,
                           validator: (value) {
-                            if (value == null || value.isEmpty) {
+                            if (value == null || value.trim().isEmpty) {
                               return 'Please enter your password';
                             }
                             if (value.length < 6) {
@@ -211,6 +211,26 @@ class CreateAcountScreen extends StatelessWidget {
                                     BorderSide(color: Color(0xFF5D9CEC))),
                             filled: true,
                             contentPadding: const EdgeInsets.all(18),
+                          ),
+                        ),
+                      ),
+                      InkWell(
+                        onTap: () {
+                          authProvider.resetPawword();
+                        },
+                        child: const Padding(
+                          padding: EdgeInsets.only(left: 24, top: 5),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              Text.rich(
+                                  // textAlign: TextAlign.end,
+                                  TextSpan(
+                                      style: TextStyle(
+                                          fontSize: 16,
+                                          color: Color(0xFF5D9CEC)),
+                                      text: "Forget Password")),
+                            ],
                           ),
                         ),
                       ),

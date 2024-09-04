@@ -6,9 +6,10 @@ import 'package:todo_app/modules/core/model/auth/pages/create_acount_screen.dart
 import 'package:todo_app/modules/core/model/auth/pages/login_screen.dart';
 import 'package:todo_app/modules/core/themes/apptheme.dart';
 import 'package:todo_app/modules/layouts/manager/provider/local_provider.dart';
+import 'package:todo_app/modules/layouts/manager/provider/provider.dart';
 import 'package:todo_app/modules/layouts/manager/provider/theme_provider.dart';
-import 'package:todo_app/modules/layouts/screens/home_screen.dart';
 import 'package:todo_app/modules/layouts/screens/layout_screen.dart';
+import 'package:todo_app/modules/layouts/screens/splash_screen.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:todo_app/modules/layouts/screens/settings/settings.dart';
 
@@ -27,6 +28,8 @@ void main() async {
       providers: [
         ChangeNotifierProvider(create: (context) => ThemeProvider()),
         ChangeNotifierProvider(create: (context) => LocaleProvider()),
+        ChangeNotifierProvider(
+            create: (context) => MainProvider()), // Add this line
       ],
       child: const MyApp(),
     ),
@@ -46,10 +49,10 @@ class MyApp extends StatelessWidget {
       themeMode: themeProvider.currentTheme,
       darkTheme: Apptheme.darkTheme,
       debugShowCheckedModeBanner: false,
-      initialRoute: LayoutScreen.routeName,
+      initialRoute: SplashScreen.routeName,
       routes: {
         LayoutScreen.routeName: (context) => const LayoutScreen(),
-        HomeScreen.routeName: (context) => HomeScreen(),
+        SplashScreen.routeName: (context) => SplashScreen(),
         Settings.routeName: (context) => const Settings(),
         LoginScreen.routeName: (context) => const LoginScreen(),
         CreateAcountScreen.routeName: (context) => CreateAcountScreen(),
@@ -60,3 +63,4 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+// Drop DownTwon to change bettween mode and language 

@@ -1,10 +1,9 @@
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:todo_app/modules/core/model/auth/pages/login_screen.dart';
 import 'package:todo_app/modules/core/service/firebase_function.dart';
 import 'package:todo_app/modules/core/themes/ui_utils.dart';
-import 'package:todo_app/modules/layouts/screens/home_screen.dart';
+import 'package:todo_app/modules/layouts/screens/layout_screen.dart';
 
 class AuthProvider extends ChangeNotifier {
   TextEditingController emailController = TextEditingController();
@@ -40,7 +39,7 @@ class AuthProvider extends ChangeNotifier {
       if (credential != null && credential.user != null) {
         Navigator.pushNamedAndRemoveUntil(
           context,
-          HomeScreen.routeName,
+          LayoutScreen.routeName,
           (route) => false,
         );
         _showSnackBar(
@@ -75,11 +74,12 @@ class AuthProvider extends ChangeNotifier {
         passController.text,
       );
 
-      if (credential != null && credential.user != null) {
+      if (credential?.user != null) {
+        // To be sure that it login successfully!!
         print("Login successful, navigating to HomeScreen...");
         Navigator.pushNamedAndRemoveUntil(
           context,
-          HomeScreen.routeName,
+          LayoutScreen.routeName,
           (route) => false,
         );
         _showSnackBar(
@@ -108,6 +108,7 @@ class AuthProvider extends ChangeNotifier {
     }
   }
 
+  // SnackBar Function
   void _showSnackBar(
       BuildContext context, String title, String message, ContentType type) {
     final snackBar = SnackBar(
@@ -123,5 +124,10 @@ class AuthProvider extends ChangeNotifier {
     ScaffoldMessenger.of(context)
       ..hideCurrentSnackBar()
       ..showSnackBar(snackBar);
+  }
+
+  void resetPawword() {
+    FirebaseFunction.resetPassword(passController.text);
+    notifyListeners();
   }
 }
