@@ -1,9 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart' as prefix;
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:todo_app/modules/core/model/task_moder.dart';
+import 'package:todo_app/modules/core/model/auth/pages/login_screen.dart';
+import 'package:todo_app/modules/core/model/auth/pages/user_model.dart';
+import 'package:todo_app/modules/core/model/task_model.dart';
 import 'package:todo_app/modules/core/service/firebase_function.dart';
 import 'package:todo_app/modules/layouts/screens/settings/settings.dart';
-import 'package:todo_app/modules/layouts/screens/task_screen.dart';
+import 'package:todo_app/modules/layouts/screens/tasks/task_screen.dart';
 
 class MainProvider extends ChangeNotifier {
   DateTime selectedDate = DateTime.now();
@@ -13,7 +16,7 @@ class MainProvider extends ChangeNotifier {
   TimeOfDay time = TimeOfDay.now();
   TextEditingController titleController = TextEditingController();
   TextEditingController descController = TextEditingController();
-
+  UserModel? user;
   int currentIndex = 0;
   List<Widget> tabs = [
     const TaskScreen(),
@@ -75,5 +78,27 @@ class MainProvider extends ChangeNotifier {
     } catch (error) {
       print('Failed to update task status: $error');
     }
+  }
+
+  Future<void> updateTask(TaskModel updatedTask) async {
+    try {
+      await FirebaseFunction.updateTask(updatedTask);
+    } catch (error) {
+      print('Failed to update task: $error');
+    }
+  }
+
+  void getUser() async {
+    user = await FirebaseFunction.getUser();
+    notifyListeners();
+  }
+
+  void logOut(BuildContext context) {
+    FirebaseAuth.instance.signOut();
+    Navigator.pushNamedAndRemoveUntil(
+      context,
+      LoginScreen.routeName,
+      (route) => false,
+    );
   }
 }

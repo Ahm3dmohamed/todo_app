@@ -43,8 +43,8 @@ class AddTaskWidget extends StatelessWidget {
               TextField(
                 controller: Provider.descController,
                 decoration: InputDecoration(
-                    hintText: appTranslation(context).taskDescreption,
-                    labelText: appTranslation(context).taskDescreption,
+                    hintText: appTranslation(context).taskDescription,
+                    labelText: appTranslation(context).taskDescription,
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(25),
                         borderSide: const BorderSide(
@@ -53,9 +53,9 @@ class AddTaskWidget extends StatelessWidget {
               const SizedBox(
                 height: 18,
               ),
-              const Text(
-                "Selected Time",
-                style: TextStyle(
+              Text(
+                appTranslation(context).selectedTime,
+                style: const TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.w700,
                 ),

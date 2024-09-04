@@ -1,6 +1,8 @@
 import 'dart:async';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:todo_app/modules/core/model/auth/pages/create_acount_screen.dart';
 import 'package:todo_app/modules/layouts/manager/provider/theme_provider.dart';
 import 'package:todo_app/modules/layouts/screens/home_screen.dart';
 
@@ -20,11 +22,19 @@ class _LayoutScreenState extends State<LayoutScreen> {
     Timer(
       const Duration(seconds: 5),
       () {
-        Navigator.pushNamedAndRemoveUntil(
-          context,
-          HomeScreen.routeName,
-          (route) => false,
-        );
+        if (FirebaseAuth.instance.currentUser != null) {
+          Navigator.pushNamedAndRemoveUntil(
+            context,
+            HomeScreen.routeName,
+            (route) => false,
+          );
+        } else {
+          Navigator.pushNamedAndRemoveUntil(
+            context,
+            CreateAcountScreen.routeName,
+            (route) => false,
+          );
+        }
       },
     );
   }

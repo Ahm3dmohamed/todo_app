@@ -1,24 +1,34 @@
 {
-"appTitle":"To Do List",
-"list":"List",
-"task":"Enter Task Name",
-"taskDescreption":"Enter Task Description",
-"addTask":"Add Task",
-"selectedDate":"Selected Date",
-"addNewTask":"Add New Task",
-"taskTile":"Task Tile",
-"taskdes":"Task Description",
-"mode":"ThemeMode",
-"dark":"Dark",
-"light":"Light",
-"setting":"Settings",
-"language":"language"
-
-
-
-
-
-
-
-
-}
+    "appTitle": "To Do List",
+    "list": "List",
+    "task": "Enter Task Name",
+    "taskDescription": "Enter Task Description",  
+    "addTask": "Add Task",
+    "selectedDate": "Selected Date",
+    "selectedTime": "Selected Time",
+    "createAccount": "Create Account",
+    "login": "Login",
+    "password": "Enter Your Password",
+    "email": "Enter Your Email",
+    "isDone": "Done!",
+    "name": "Enter Your Name",
+    "phone": "Phone",
+    "accountCheck": "Do you have an account?",
+    "notHaveAccount": "Don't have an account?",
+    "edit": "Edit",
+    "delete": "Delete",
+    "saveChanges": "Save Changes",
+    "cancel": "Cancel", 
+    "addNewTask": "Add New Task",
+    "taskTitle": "Task Title", 
+    "mode": "Theme Mode",
+    "dark": "Dark",
+    "light": "Light",
+    "setting": "Settings",
+    "language": "Language",
+    "error": "Error",
+    "accountCreationFailed": "Account creation failed", 
+    "success": "Success",
+    "accountCreatedSuccessfully": "Account created successfully!"  
+  }
+  

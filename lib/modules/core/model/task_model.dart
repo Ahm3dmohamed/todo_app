@@ -1,6 +1,7 @@
 class TaskModel {
   String title;
   String id;
+  String userId;
   String desc;
   int date;
   String time;
@@ -8,6 +9,7 @@ class TaskModel {
   TaskModel(
       {required this.desc,
       this.id = "",
+      this.userId = "",
       required this.isDone,
       required this.date,
       required this.time,
@@ -17,6 +19,7 @@ class TaskModel {
     return TaskModel(
         title: json["title"],
         id: json["id"],
+        userId: json["userId"],
         desc: json["desc"],
         time: json["time"],
         date: json["date"],
@@ -35,6 +38,7 @@ class TaskModel {
     return {
       "title": title,
       "id": id,
+      "userId": userId,
       "desc": desc,
       "time": time,
       "date": date,

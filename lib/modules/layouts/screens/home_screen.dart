@@ -4,7 +4,7 @@ import 'package:todo_app/modules/core/themes/app_color.dart';
 import 'package:todo_app/modules/core/themes/ui_utils.dart';
 import 'package:todo_app/modules/layouts/manager/provider/provider.dart';
 import 'package:todo_app/modules/layouts/manager/provider/theme_provider.dart';
-import 'package:todo_app/modules/layouts/screens/add_task_widget.dart';
+import 'package:todo_app/modules/layouts/screens/tasks/add_task_widget.dart';
 
 class HomeScreen extends StatelessWidget {
   static const String routeName = 'HomeScreen';
@@ -14,7 +14,7 @@ class HomeScreen extends StatelessWidget {
     final themeProvider = Provider.of<ThemeProvider>(context, listen: false);
     bool isDarkEnabled = themeProvider.isDarkEnabled();
     return ChangeNotifierProvider(
-      create: (BuildContext context) => MainProvider(),
+      create: (BuildContext context) => MainProvider()..getTask(),
       child: Selector<MainProvider, int>(
         selector: (p0, p1) => p1.currentIndex,
         builder: (BuildContext context, currentIndex, Widget? child) {
