@@ -1,21 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:provider/provider.dart';
-import 'package:todo_app/modules/core/model/task_moder.dart';
+import 'package:todo_app/modules/core/model/task_model.dart';
 import 'package:todo_app/modules/core/themes/app_color.dart';
+import 'package:todo_app/modules/core/themes/ui_utils.dart';
 import 'package:todo_app/modules/layouts/manager/provider/provider.dart';
 import 'package:todo_app/modules/layouts/manager/provider/theme_provider.dart';
+import 'package:todo_app/modules/layouts/screens/tasks/edit_taskwidget.dart';
 
 class TaskItem extends StatelessWidget {
-  final TaskModel taskModel; // Made final for immutability
+  final TaskModel taskModel;
+
   const TaskItem({required this.taskModel, super.key});
 
   @override
   Widget build(BuildContext context) {
     final themeProvider = Provider.of<ThemeProvider>(context, listen: false);
     bool isDarkEnabled = themeProvider.isDarkEnabled();
+
     return Consumer<MainProvider>(
-      builder: (BuildContext context, Provider, Widget? child) {
+      builder: (BuildContext context, mainProvider, Widget? child) {
         return Container(
           decoration: BoxDecoration(
             border: Border.all(
@@ -34,23 +38,30 @@ class TaskItem extends StatelessWidget {
               children: [
                 SlidableAction(
                   onPressed: (context) {
-                    Provider.deleteTask(taskModel.id);
+                    mainProvider.deleteTask(taskModel.id);
                   },
                   backgroundColor: Colors.red,
                   foregroundColor: Colors.white,
-                  spacing: 8,
                   borderRadius: BorderRadius.circular(24),
                   icon: Icons.delete,
-                  label: 'Delete',
+                  label: appTranslation(context).delete,
                 ),
                 SlidableAction(
-                  onPressed: (context) {},
+                  onPressed: (context) async {
+                    final updatedTask = await showDialog<TaskModel>(
+                      context: context,
+                      builder: (context) =>
+                          EditTaskWidget(taskModel: taskModel),
+                    );
+                    if (updatedTask != null) {
+                      mainProvider.updateTask(updatedTask);
+                    }
+                  },
                   backgroundColor: const Color(0xFF0392CF),
                   foregroundColor: Colors.white,
                   icon: Icons.edit,
                   borderRadius: BorderRadius.circular(24),
-                  spacing: 8,
-                  label: 'Edit',
+                  label: appTranslation(context).edit,
                 ),
               ],
             ),
@@ -101,9 +112,7 @@ class TaskItem extends StatelessWidget {
                         Row(
                           children: [
                             const Icon(Icons.timelapse),
-                            const SizedBox(
-                              width: 5,
-                            ),
+                            const SizedBox(width: 5),
                             Text(
                               taskModel.time,
                               style: const TextStyle(
@@ -117,12 +126,12 @@ class TaskItem extends StatelessWidget {
                   ),
                   InkWell(
                     onTap: () {
-                      Provider.isDone(taskModel);
+                      mainProvider.isDone(taskModel);
                     },
                     child: taskModel.isDone
-                        ? const Text(
-                            'Done..!',
-                            style: TextStyle(color: Colors.green),
+                        ? Text(
+                            appTranslation(context).delete,
+                            style: const TextStyle(color: Colors.green),
                           )
                         : Container(
                             height: 30,
@@ -140,9 +149,7 @@ class TaskItem extends StatelessWidget {
                             ),
                           ),
                   ),
-                  const SizedBox(
-                    width: 5,
-                  )
+                  const SizedBox(width: 5)
                 ],
               ),
             ),

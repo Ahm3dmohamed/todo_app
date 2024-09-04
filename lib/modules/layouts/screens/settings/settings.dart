@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:todo_app/modules/core/themes/ui_utils.dart';
 import 'package:todo_app/modules/layouts/manager/provider/local_provider.dart';
+import 'package:todo_app/modules/layouts/manager/provider/provider.dart';
 import 'package:todo_app/modules/layouts/manager/provider/theme_provider.dart';
 import 'package:todo_app/modules/layouts/screens/settings/setting_lang_tab.dart';
 import 'package:todo_app/modules/layouts/screens/settings/setting_theme_tab.dart';
@@ -14,91 +16,104 @@ class Settings extends StatelessWidget {
     var localeProvider = LocaleProvider.get(context);
     ThemeProvider themeProvider = ThemeProvider.get(context);
 
-    return Scaffold(
-      appBar: AppBar(
-        toolbarHeight: 200,
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.only(
-              bottomLeft: Radius.circular(34),
-              bottomRight: Radius.circular(34)),
-        ),
-        title: Text(
-          appTranslation(context).setting,
-          textDirection: TextDirection.ltr,
-          style: const TextStyle(
-              fontSize: 28, fontWeight: FontWeight.normal, color: Colors.white),
-        ),
-      ),
-      backgroundColor: Colors.transparent,
-      body: Padding(
-        padding: const EdgeInsets.all(18),
-        child: Column(
-          children: [
-            Text(
-              textAlign: TextAlign.start,
-              appTranslation(context).mode,
+    return Consumer<MainProvider>(
+      builder: (BuildContext context, Provider, Widget? child) {
+        return Scaffold(
+          appBar: AppBar(
+            actions: [
+              IconButton(
+                  onPressed: () {
+                    Provider.logOut(context);
+                  },
+                  icon: const Icon(Icons.logout)),
+            ],
+            toolbarHeight: 155,
+            shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.only(
+                  bottomLeft: Radius.circular(34),
+                  bottomRight: Radius.circular(34)),
             ),
-            const SizedBox(
-              height: 18,
+            title: Text(
+              appTranslation(context).setting,
+              textDirection: TextDirection.ltr,
+              style: const TextStyle(
+                  fontSize: 28,
+                  fontWeight: FontWeight.normal,
+                  color: Colors.white),
             ),
-            Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
-                width: double.infinity,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(18),
-                    border: Border.all(
-                        color: const Color.fromARGB(255, 3, 42, 94))),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      textAlign: TextAlign.start,
-                      themeProvider.currentTheme.name,
-                      style: const TextStyle(color: Color(0xFF5D9CEC)),
-                    ),
-                    IconButton(
-                        onPressed: () {
-                          showThemeBottomSheet(context);
-                        },
-                        icon: const Icon(Icons.arrow_drop_down_outlined))
-                  ],
-                )),
-            const SizedBox(
-              height: 18,
+          ),
+          backgroundColor: Colors.transparent,
+          body: Padding(
+            padding: const EdgeInsets.all(18),
+            child: Column(
+              children: [
+                Text(
+                  textAlign: TextAlign.start,
+                  appTranslation(context).mode,
+                ),
+                const SizedBox(
+                  height: 18,
+                ),
+                Container(
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(18),
+                        border: Border.all(
+                            color: const Color.fromARGB(255, 3, 42, 94))),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          textAlign: TextAlign.start,
+                          themeProvider.currentTheme.name,
+                          style: const TextStyle(color: Color(0xFF5D9CEC)),
+                        ),
+                        IconButton(
+                            onPressed: () {
+                              showThemeBottomSheet(context);
+                            },
+                            icon: const Icon(Icons.arrow_drop_down_outlined))
+                      ],
+                    )),
+                const SizedBox(
+                  height: 18,
+                ),
+                Text(
+                  appTranslation(context).language,
+                ),
+                const SizedBox(
+                  height: 18,
+                ),
+                Container(
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(18),
+                        border: Border.all(
+                            color: const Color.fromARGB(255, 3, 42, 94))),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          textAlign: TextAlign.start,
+                          style: const TextStyle(color: Color(0xFF5D9CEC)),
+                          localeProvider.getCurrentLocale(),
+                        ),
+                        IconButton(
+                            onPressed: () {
+                              showlanguageBottomSheet(context);
+                            },
+                            icon: const Icon(Icons.arrow_drop_down_outlined))
+                      ],
+                    )),
+              ],
             ),
-            Text(
-              appTranslation(context).language,
-            ),
-            const SizedBox(
-              height: 18,
-            ),
-            Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
-                width: double.infinity,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(18),
-                    border: Border.all(
-                        color: const Color.fromARGB(255, 3, 42, 94))),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      textAlign: TextAlign.start,
-                      style: const TextStyle(color: Color(0xFF5D9CEC)),
-                      localeProvider.getCurrentLocale(),
-                    ),
-                    IconButton(
-                        onPressed: () {
-                          showlanguageBottomSheet(context);
-                        },
-                        icon: const Icon(Icons.arrow_drop_down_outlined))
-                  ],
-                )),
-          ],
-        ),
-      ),
+          ),
+        );
+      },
     );
   }
 
