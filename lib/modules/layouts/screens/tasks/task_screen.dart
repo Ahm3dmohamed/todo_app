@@ -12,6 +12,7 @@ import 'package:todo_app/modules/layouts/screens/tasks/task_item.dart';
 class TaskScreen extends StatelessWidget {
   static const String routeName = "TaskScreen";
   const TaskScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     final themeProvider = Provider.of<ThemeProvider>(context, listen: false);
@@ -19,6 +20,10 @@ class TaskScreen extends StatelessWidget {
 
     return Consumer<MainProvider>(
       builder: (BuildContext context, mainProvider, Widget? child) {
+        // Null safety check for user
+        final userName =
+            mainProvider.user?.userName?.toUpperCase() ?? "Hamada ";
+
         return Scaffold(
           appBar: AppBar(
             toolbarHeight: 155,
@@ -31,9 +36,9 @@ class TaskScreen extends StatelessWidget {
             title: Padding(
               padding: const EdgeInsets.only(left: 12, right: 12, bottom: 44),
               child: Text(
-                " ${appTranslation(context).appTitle} \n Welcome ${mainProvider.user?.userName?.toUpperCase() ?? "Guest"}",
+                " ${appTranslation(context).appTitle} \n Welcome $userName",
                 style: const TextStyle(
-                  fontSize: 24,
+                  fontSize: 22,
                   fontWeight: FontWeight.normal,
                   color: Colors.white,
                 ),
@@ -63,8 +68,9 @@ class TaskScreen extends StatelessWidget {
                   );
                 },
                 child: EasyInfiniteDateTimeLine(
-                  firstDate:
-                      FirebaseAuth.instance.currentUser!.metadata.creationTime!,
+                  firstDate: FirebaseAuth
+                          .instance.currentUser?.metadata.creationTime ??
+                      DateTime.now(),
                   lastDate: DateTime.now().add(const Duration(days: 365)),
                   focusDate: mainProvider.selectedDate,
                   showTimelineHeader: false,
@@ -100,7 +106,7 @@ class TaskScreen extends StatelessWidget {
                       return const Center(child: Text("Error Data"));
                     } else if (!snapshot.hasData ||
                         snapshot.data!.docs.isEmpty) {
-                      return const Center(child: Text(" "));
+                      return const Text("No Tasks Available");
                     } else {
                       List<TaskModel> tasks =
                           snapshot.data!.docs.map((e) => e.data()).toList();

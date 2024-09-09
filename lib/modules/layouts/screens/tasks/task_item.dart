@@ -130,7 +130,7 @@ class TaskItem extends StatelessWidget {
                     },
                     child: taskModel.isDone
                         ? Text(
-                            appTranslation(context).delete,
+                            appTranslation(context).isDone,
                             style: const TextStyle(color: Colors.green),
                           )
                         : Container(

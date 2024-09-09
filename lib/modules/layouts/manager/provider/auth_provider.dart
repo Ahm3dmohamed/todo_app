@@ -36,7 +36,7 @@ class AuthProvider extends ChangeNotifier {
         nameController.text,
       );
 
-      if (credential != null && credential.user != null) {
+      if (credential?.user == null) {
         Navigator.pushNamedAndRemoveUntil(
           context,
           LayoutScreen.routeName,
@@ -75,7 +75,6 @@ class AuthProvider extends ChangeNotifier {
       );
 
       if (credential?.user != null) {
-        // To be sure that it login successfully!!
         print("Login successful, navigating to HomeScreen...");
         Navigator.pushNamedAndRemoveUntil(
           context,
@@ -108,7 +107,6 @@ class AuthProvider extends ChangeNotifier {
     }
   }
 
-  // SnackBar Function
   void _showSnackBar(
       BuildContext context, String title, String message, ContentType type) {
     final snackBar = SnackBar(
