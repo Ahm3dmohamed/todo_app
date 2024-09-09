@@ -98,7 +98,6 @@ class FirebaseFunction {
       );
       await credential.user!.sendEmailVerification();
 
-      // Optionally add the user to the Firestore collection
       UserModel newUser = UserModel(
         userId: credential.user!.uid,
         userEmail: email,
@@ -153,6 +152,8 @@ class FirebaseFunction {
   }
 
   static resetPassword(String email) {
-    FirebaseAuth.instance.sendPasswordResetEmail(email: email);
+    final credential = FirebaseAuth.instance.sendPasswordResetEmail(
+        email: email, actionCodeSettings: ActionCodeSettings(url: email));
+    return credential;
   }
 }

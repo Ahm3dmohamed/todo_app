@@ -10,9 +10,7 @@ class CreateAcountScreen extends StatelessWidget {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   static const String routeName = "Create";
-
   CreateAcountScreen({super.key});
-
   @override
   Widget build(BuildContext context) {
     var localeProvider = LocaleProvider.get(context);

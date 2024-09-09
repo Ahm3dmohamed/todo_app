@@ -49,7 +49,7 @@ class MyApp extends StatelessWidget {
       themeMode: themeProvider.currentTheme,
       darkTheme: Apptheme.darkTheme,
       debugShowCheckedModeBanner: false,
-      initialRoute: SplashScreen.routeName,
+      initialRoute: LayoutScreen.routeName,
       routes: {
         LayoutScreen.routeName: (context) => const LayoutScreen(),
         SplashScreen.routeName: (context) => SplashScreen(),

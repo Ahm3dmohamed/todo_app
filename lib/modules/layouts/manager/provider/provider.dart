@@ -73,7 +73,6 @@ class MainProvider extends ChangeNotifier {
   void isDone(TaskModel task) async {
     try {
       await FirebaseFunction.isDoneUpdate(task);
-      // notifyListeners();
     } catch (error) {
       print('Failed to update task status: $error');
     }
